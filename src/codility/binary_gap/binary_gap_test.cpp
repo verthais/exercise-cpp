@@ -1,29 +1,30 @@
-#include "gtest/gtest.h"
 #include <limits>
+
+#include "gtest/gtest.h"
 
 int solution(int N)
 {
     unsigned long int max = std::numeric_limits<unsigned long int>::min();
-    unsigned long int temp{};
-    bool opening_one{false};
-    
-    while(N) {
-        if(N&1) {
-            if(!opening_one) {
+    unsigned long int temp {};
+    bool opening_one { false };
+
+    while (N) {
+        if (N & 1) {
+            if (!opening_one) {
                 opening_one = true;
             } else {
-                if(max<temp) {
+                if (max < temp) {
                     max = temp;
-                }   
+                }
                 temp = 0;
             }
         } else {
-            if(opening_one)
+            if (opening_one)
                 ++temp;
         }
         N = N >> 1;
     }
-    
+
     return max;
 }
 
