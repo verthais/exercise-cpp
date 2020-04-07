@@ -1,3 +1,5 @@
+# Copyright (c) 2019 verthais
+
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = git@github.com:google/googletest.git

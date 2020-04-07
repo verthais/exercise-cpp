@@ -1,3 +1,5 @@
+/* Copyright (c) 2019 verthais */
+
 #include <algorithm>
 #include <unordered_map>
 #include <vector>

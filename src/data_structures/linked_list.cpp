@@ -1,18 +1,23 @@
-#include <memory>
+/* Copyright (c) 2019 verthais */
+
 #include <iostream>
+#include <memory>
 
 #include "gtest/gtest.h"
 
-template<typename T>
+template <typename T>
 struct Node {
     T value;
     std::unique_ptr<Node> next;
 
-    Node(const T& v) : value(v), next{nullptr} {};
+    Node(const T& v)
+        : value(v)
+        , next { nullptr } {};
 
-    void push(const T& v) {
-        auto temp{std::make_unique<Node<T>>(v)};
-        if(next) {
+    void push(const T& v)
+    {
+        auto temp { std::make_unique<Node<T>>(v) };
+        if (next) {
             temp->next = std::move(next);
             next = std::move(temp);
         } else {
@@ -20,27 +25,29 @@ struct Node {
         }
     }
 
-    std::string str() const {
-        return std::to_string(value) + "-->" + ( next ? next->str() : "end" );
+    std::string str() const
+    {
+        return std::to_string(value) + "-->" + (next ? next->str() : "end");
     }
 };
 
-template<typename T>
+template <typename T>
 struct Root {
     std::unique_ptr<Node<T>> root;
 
-    Root() noexcept : root{nullptr} {};
+    Root() noexcept
+        : root { nullptr } {};
     Root(std::initializer_list<T> source)
     {
-        for(auto e : source)
-        {
+        for (auto e : source) {
             push(std::move(e));
         }
     }
 
-    void push(const T&& v)  {
-        auto temp{std::make_unique<Node<T>>(v)};
-        if(root) {
+    void push(const T&& v)
+    {
+        auto temp { std::make_unique<Node<T>>(v) };
+        if (root) {
             temp->next = std::move(root);
             root = std::move(temp);
         } else {
@@ -48,9 +55,10 @@ struct Root {
         }
     }
 
-    void reverse() noexcept {
+    void reverse() noexcept
+    {
         Root temp;
-        while(root) {
+        while (root) {
             temp.push(std::move(root->value));
             root = std::move(root->next);
         }
@@ -58,25 +66,29 @@ struct Root {
         root = std::move(temp.root);
     }
 
-    void clean() noexcept {
-        while(root) {
+    void clean() noexcept
+    {
+        while (root) {
             root = std::move(root->next);
         }
     }
 
-    void pop() noexcept {
-        if(root) {
+    void pop() noexcept
+    {
+        if (root) {
             root = std::move(root->next);
         }
     }
 
-    std::string str() const {
+    std::string str() const
+    {
         return (root ? root->str() : "empty");
     }
 };
 
-template<typename T>
-std::ostream& operator<<(std::ostream& out, const Root<T>& r) {
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const Root<T>& r)
+{
     out << r.str();
     return out;
 }
@@ -95,7 +107,7 @@ TEST(linked_list, push)
 
 TEST(linked_list, pop)
 {
-    Root<int> root{1,2,3,4,5};
+    Root<int> root { 1, 2, 3, 4, 5 };
 
     root.pop();
     root.pop();
@@ -104,7 +116,7 @@ TEST(linked_list, pop)
 
 TEST(linked_list, reverse)
 {
-    Root<int> root{1,2,3};q
+    Root<int> root { 1, 2, 3 };
     root.reverse();
     EXPECT_EQ("1-->2-->3-->end", root.str());
 }

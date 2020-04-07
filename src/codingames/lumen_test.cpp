@@ -1,100 +1,114 @@
+/* Copyright (c) 2019 verthais */
+
 #include "gtest/gtest.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include <ostream>
 #include <sstream>
+#include <string>
+#include <vector>
 
 using namespace std;
- 
+
 struct Room {
     int size;
     int light;
-    int m_x{}, m_y{};
+    int m_x {}, m_y {};
     std::vector<std::vector<int>> grid;
-    
-    Room(int s, int l) : size(s), light(l), grid(size, std::vector<int>(size))
-    { }
-    
-    void push(const std::string& row) {
-        for(const auto& c : row) {
-            if(c != ' ') {
+
+    Room(int s, int l)
+        : size(s)
+        , light(l)
+        , grid(size, std::vector<int>(size))
+    {
+    }
+
+    void push(const std::string& row)
+    {
+        for (const auto& c : row) {
+            if (c != ' ') {
                 push(c);
             }
         }
     }
-    
-    void push(char c) {
-        if(c == 'X') {
+
+    void push(char c)
+    {
+        if (c == 'X') {
             grid[m_x][m_y] += 0;
         } else if (c == 'C') {
             grid[m_x][m_y] = light;
-            spread(m_x,m_y,light,1);
+            spread(m_x, m_y, light, 1);
         }
-        
+
         ++m_x;
-        if(m_x >= size) {
+        if (m_x >= size) {
             ++m_y;
-            m_x=0;
+            m_x = 0;
         }
     }
-    
-    void spread(int x, int y, int l, int d) {
-        if ( l - d == 0 ) return;
-        
-        for(int px = x - d; px < x + d + 1; ++px) {
-            shed(px, y-d, l-d);
-            shed(px, y+d, l-d);
+
+    void spread(int x, int y, int l, int d)
+    {
+        if (l - d == 0)
+            return;
+
+        for (int px = x - d; px < x + d + 1; ++px) {
+            shed(px, y - d, l - d);
+            shed(px, y + d, l - d);
         }
-        
-        for(int py = y - d; py < y + d + 1; ++py) {
-            shed(x-d, py, l-d);
-            shed(x+d, py, l-d);
+
+        for (int py = y - d; py < y + d + 1; ++py) {
+            shed(x - d, py, l - d);
+            shed(x + d, py, l - d);
         }
-    
-        shed_f(x-d, y-d, l-d);
-        shed_f(x+d, y+d, l-d);
-        shed_f(x-d, y+d, l-d);
-        shed_f(x+d, y-d, l-d);
-    
-        spread(x,y,l,d+1);
+
+        shed_f(x - d, y - d, l - d);
+        shed_f(x + d, y + d, l - d);
+        shed_f(x - d, y + d, l - d);
+        shed_f(x + d, y - d, l - d);
+
+        spread(x, y, l, d + 1);
     }
-    void shed_f(int x, int y, int l) {
-        if(x>= 0
-        && y >=0
-        && x < size
-        && y < size) {
-            grid[x][y] = l;    
-        }
-    }    
-    void shed(int x, int y, int l) {
-        if(x>= 0
-        && y >=0
-        && x < size
-        && y < size) {
-            grid[x][y] += l;    
+    void shed_f(int x, int y, int l)
+    {
+        if (x >= 0
+            && y >= 0
+            && x < size
+            && y < size) {
+            grid[x][y] = l;
         }
     }
-    
-    int count() const {
-        int result{};
-        for(int x{}; x<size; ++x) {
-            for(int y{}; y<size; ++y) {
-                if(grid[x][y] == 0) {
+    void shed(int x, int y, int l)
+    {
+        if (x >= 0
+            && y >= 0
+            && x < size
+            && y < size) {
+            grid[x][y] += l;
+        }
+    }
+
+    int count() const
+    {
+        int result {};
+        for (int x {}; x < size; ++x) {
+            for (int y {}; y < size; ++y) {
+                if (grid[x][y] == 0) {
                     ++result;
                 }
             }
         }
         return result;
     }
-    
-    std::string str() {
+
+    std::string str()
+    {
         std::stringstream out;
-        for(int x{}; x<size; ++x) {
-            for(int y{}; y<size; ++y) {
+        for (int x {}; x < size; ++x) {
+            for (int y {}; y < size; ++y) {
                 out << grid[x][y];
             }
             out << endl;
@@ -113,10 +127,9 @@ TEST(lumen, simple)
         "X X X X X"
     };
 
-    Room room{5,3};
+    Room room { 5, 3 };
 
-    for(const auto& row : grid)
-    {
+    for (const auto& row : grid) {
         room.push(row);
     }
 
@@ -133,10 +146,9 @@ TEST(lumen, four_candels)
         "C X X X C"
     };
 
-    Room room{5, 3};
+    Room room { 5, 3 };
 
-    for(const auto& row : grid)
-    {
+    for (const auto& row : grid) {
         room.push(row);
     }
 
@@ -168,10 +180,9 @@ TEST(lumen, multiple_light_sources)
         "X C X C X X X X X X X X X X X X X X X X"
     };
 
-    Room room{20, 3};
+    Room room { 20, 3 };
 
-    for(const auto& row : grid)
-    {
+    for (const auto& row : grid) {
         room.push(row);
     }
 

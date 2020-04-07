@@ -1,3 +1,5 @@
+/* Copyright (c) 2019 verthais */
+
 #include "gtest/gtest.h"
 
 TEST(hello, gtest)

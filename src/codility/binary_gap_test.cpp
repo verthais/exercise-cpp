@@ -1,3 +1,5 @@
+/* Copyright (c) 2019 verthais */
+
 #include <limits>
 
 #include "gtest/gtest.h"
