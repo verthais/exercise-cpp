@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 verthais */
+# Copyright (c) 2019 verthais
 
 set(SOURCES
     "${SOURCES}"

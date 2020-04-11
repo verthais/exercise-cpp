@@ -1,6 +1,21 @@
 # exercise-cpp
 
-This repository is a proving ground for all the online challanges that came my way through out the years.
+This repository is a proving ground for all the online challanges that came my way through out the years featuring C++17.
+
+## Geting started
+
+To download this repository use:
+```
+git clone --recurse-submodules git@github.com:verthais/exercise-cpp.git
+```
+To build this repository use:
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
 
 
 ## TODO
