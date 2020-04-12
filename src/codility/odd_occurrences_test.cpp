@@ -7,7 +7,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-int solution(std::vector<int>& in) noexcept
+static int solution(std::vector<int>& in) noexcept
 {
     std::unordered_map<int, int> index;
     for (auto e : in) {
