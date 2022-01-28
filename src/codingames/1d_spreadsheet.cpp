@@ -1,7 +1,12 @@
 #include <iostream>
-#include <string> // string, stoi
+#include <exception> // invalid_argument 
+#include <string>    // string, stoi
 #include <algorithm> // any_of
-#include <vector> // vector
+#include <tuple>
+#include <vector>    // vector
+
+#include "gtest/gtest.h"
+
 using namespace std;
 
 bool is_ref(const string& s)
@@ -20,7 +25,6 @@ int action(const string& opt, int rhs, int lhs)
     if(opt == "VALUE"){
         return rhs;
     }
-
     if(opt == "ADD"){
         return (rhs + lhs);
     }
@@ -30,6 +34,8 @@ int action(const string& opt, int rhs, int lhs)
     if(opt == "MULT"){
         return (rhs * lhs);
     }
+
+    throw invalid_argument(opt + " is not know operation, expected: VALUE, ADD, SUB, MULT");
 }
 
 struct cell {
@@ -73,8 +79,8 @@ void solve(vector<cell>& d)
                 if(!d[idx].isSolved()) continue; // we can't solve it yet
                 value1 = d[idx].value;
             } else {
-                // pass 
-            } else { value1 = stoi(p.s1); }
+               value1 = stoi(p.s1); 
+            }
 
             if(is_ref(p.s2)) {
                 int idx = refToIdx(p.s2);
@@ -90,25 +96,82 @@ void solve(vector<cell>& d)
     }
 }
 
-
-int main()
+TEST(one_dim_ss, simple)
 {
     vector<cell> data;
+    vector<int> expected = { 3, 7 };
+    vector<tuple<string,string,string>> input {
+        { "VALUE", "3" , "_" },
+        { "ADD"  , "$0", "4" }
+    };
     
-    int N;
-    cin >> N; cin.ignore();
 
-    for (int i = 0; i < N; i++) {
-        string operation;
-        string arg1;
-        string arg2;
-        cin >> operation >> arg1 >> arg2; cin.ignore();
-        data.emplace_back(operation, arg1, arg2);
+    for (auto [opt, s1, s2] : input) {
+        data.emplace_back(opt, s1, s2);
     }
 
     solve(data);
-    for(const auto& p : data) cout << p.value << endl;
+    for(size_t idx{}; idx < expected.size(); ++idx) {
+      EXPECT_EQ(data[idx].value, expected[idx]);
+    }
+}
 
-    return 0;
+
+TEST(one_dim_ss, recursion)
+{
+    vector<cell> data;
+    vector<int> expected { 20, 120, 121 };
+    vector<tuple<string,string,string>> input {
+        { "VALUE", "20", "_"},
+        { "ADD", "$0", "100"},
+        { "ADD", "$1", "1"},
+    };
+
+    for (auto [opt, s1, s2] : input) {
+        data.emplace_back(opt, s1, s2);
+    }
+
+    solve(data);
+    for(size_t idx{}; idx < expected.size(); ++idx) {
+      EXPECT_EQ(data[idx].value, expected[idx]);
+    }
+}
+
+TEST(one_dim_ss, sub)
+{
+    vector<cell> data;
+    vector<int> expected { 20, 19 };
+    vector<tuple<string,string,string>> input {
+        { "VALUE", "20", "_"},
+        { "SUB", "$0", "1"},
+    };
+
+    for (auto [opt, s1, s2] : input) {
+        data.emplace_back(opt, s1, s2);
+    }
+
+    solve(data);
+    for(size_t idx{}; idx < expected.size(); ++idx) {
+      EXPECT_EQ(data[idx].value, expected[idx]);
+    }
+}
+
+TEST(one_dim_ss, mult)
+{
+    vector<cell> data;
+    vector<int> expected { 20, 120 };
+    vector<tuple<string,string,string>> input {
+        { "VALUE", "20", "_"},
+        { "MULT", "$0", "6"},
+    };
+
+    for (auto [opt, s1, s2] : input) {
+        data.emplace_back(opt, s1, s2);
+    }
+
+    solve(data);
+    for(size_t idx{}; idx < expected.size(); ++idx) {
+      EXPECT_EQ(data[idx].value, expected[idx]);
+    }
 }
 
