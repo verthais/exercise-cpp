@@ -193,7 +193,7 @@ to as vertices and the edges are lines or arcs that connect any two nodes in the
 ## Access times
 
 |                         | Random Access [] | push back  | pop back  |   insert   |    erase    |    find   |    sort     |
-|=========================|==================|============|===========|============|=============|===========|=============|
+|:-----------------------:|:----------------:|:----------:|:---------:|:----------:|:-----------:|:---------:|:-----------:|
 |          array          |        O(1)      |    N/A     |    N/A    |    N/A     |     N/A     |    O(n)   | O(n log(n)) |
 |         vector          |        O(1)      |    O(1)    |    N/A    |    O(n)    |     O(n)    |    O(n)   | O(n log(n)) |
 |          deque          |        O(1)      |    O(1)    |    O(1)   |    O(n)    |     O(n)    |    O(n)   | O(n log(n)) |
@@ -203,4 +203,3 @@ to as vertices and the edges are lines or arcs that connect any two nodes in the
 |      map/multimap       |        N/A       |    N/A     |    N/A    |  O(log(n)) |  O(log(n))  | O(log(n)) |     N/A     |
 | unordered_set/multiset  |        N/A       |    N/A     |    N/A    |    O(1)    |     O(1)    |    O(1)   |     N/A     |
 |  unordered_map/multimap |        N/A       |    N/A     |    N/A    |    O(1)    |     O(1)    |    O(1)   |     N/A     |
-|-------------------------|------------------|------------|-----------|------------|-------------|-----------|-------------|
