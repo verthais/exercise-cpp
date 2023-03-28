@@ -2,6 +2,30 @@
 
 ## Overview
 
+### Basic
+
+- [Array](#array)
+- [Singly Linked List](#singly-linked-list)
+- [Doubly Linked List](#doubly-linked-list)
+- [Circular Linked List](#circular-linked-list)
+- [Stack](#stack)
+- [Queue](#queue)
+- [Circular Queue](#circular-queue)
+
+### Advanced
+
+- [Map](#map)
+- [HashTable](#hashtable)
+- [Binary Tree](#binary-tree)
+- [AVL Tree](#avl-tree)
+- [Red-Black Tree](#red-black-tree)
+- [Tries](#tries)
+- [B-Tree](#b-tree)
+- [Heap](#heap)
+- [Graph](#graph)
+
+### [Access times](#access-times)
+
 ## Linear Data Structures 
 
 ### Array
@@ -10,10 +34,14 @@ A data structure used to store homogeneous elements at contiguous locations. Siz
 of an array must be provided before storing data and cannot be changed without
 reallocating every element. 
 
+[Top](#data-structures)
+
 ### Singly Linked List
 
 Every node stores reference of next node in list and the last node has next
 address or reference as NULL. For example 1->2->3->4->NULL 
+
+[Top](#data-structures)
 
 ### Doubly Linked List
 
@@ -22,6 +50,7 @@ to the next node and one to the previous node. Advantage of this data structure
 is that we can traverse in both the directions and for deletion we don’t need
 to have explicit access to previous node. Eg. NULL<-1<->2<->3->NULL  
 
+[Top](#data-structures)
 
 ### Circular Linked List
 
@@ -30,6 +59,8 @@ linked list can be a singly circular linked list or doubly circular linked list.
 Advantage of this data structure is that any node can be made as starting node.
 This is useful in implementation of circular queue in linked list. Eg. 1->2->3->1
 [The next pointer of last node is pointing to the first] 
+
+[Top](#data-structures)
 
 ### Stack
 
@@ -40,12 +71,17 @@ both the operations of push and pop takes place at the same end that is top of
 the stack. It can be implemented by using both array and linked list. It's used
 for example by compiler to check for missing symbols like closing brackets. 
 
+[Top](#data-structures)
+
 ### Queue
 
 FIFO (first in, first out) is an abstract data type that serves as a collection
 of elements, with two principal operations: enqueue, the process of adding an
 element to the collection.(The element is added from the rear side) and dequeue,
-the process of removing the first element that was added. (The element is remove 
+the process of removing the first element that was added. (The element is removed
+from the front side). It can be implemented by using both array and linked list.
+
+[Top](#data-structures)
 
 ### Circular Queue
 
@@ -53,12 +89,16 @@ The advantage of this data structure is that it reduces wastage of space in case
 of array implementation, As the insertion of the (n+1)’th element is done at the
 0’th index if it is empty. 
 
+[Top](#data-structures)
+
 ## Advanced Data Structures 
 
 ### Map
 
 An abstract data type composed of a collection of (key, value) pairs, such that
 each possible key appears at most once in the collection.  
+
+[Top](#data-structures)
 
 ### HashTable
 
@@ -75,6 +115,8 @@ index = hash % array_size
 
 Hash function should provide a uniform distribution of hash values to minimalize
 the collisions. 
+
+[Top](#data-structures)
 
 ### Binary Tree
 
@@ -98,11 +140,15 @@ sorting
 
 heap
 
+[Top](#data-structures)
+
 ### AVL Tree
 
 Is a self-balancing Binary Search Tree (BST) where the difference between
 heights of left and right subtrees cannot be more than one for all nodes. The balance
 factor of the node is equal to difference between height of left and right subtree. 
+
+[Top](#data-structures)
 
 ### Red-Black Tree
 
@@ -126,6 +172,8 @@ to the root where they can be accessed more quickly. The worst-case height—tho
 unlikely—is O(n), with the average being O(log n). The most significant disadvantage of
 splay trees is that the height of a splay tree can be linear. 
 
+[Top](#data-structures)
+
 ### Tries
 
 Is an efficient information reTrieval data structure. Using Trie, search complexities can
@@ -136,6 +184,8 @@ the penalty is on Trie storage requirements. Every node of Trie consists of mult
 branches. Each branch represents a possible character of keys. We need to mark the last
 node of every key as end of word node. A Trie node field isEndOfWord is used to distinguish
 the node as end of word node.  
+
+[Top](#data-structures)
 
 ### B-Tree
 
@@ -150,15 +200,21 @@ node. Generally, the B-Tree node size is kept equal to the disk block size. Sinc
 of the B-tree is low so total disk accesses for most of the operations are reduced
 significantly. 
 
+[Top](#data-structures)
+
 ### Heap
 
 Is a special Tree-based data structure in which the tree is a complete binary tree. Generally,
 Heaps can be of two types: 
 
+[Top](#data-structures)
+
 #### Max-Heap
 
 In a Max-Heap the key present at the root node must be greatest among the keys present at all
 of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree. 
+
+[Top](#data-structures)
 
 #### Min-Heap
 
@@ -185,10 +241,14 @@ Returns the right child node
 
 Time complexity of building a heap is O(n). 
 
+[Top](#data-structures)
+
 ### Graph
 
 Is a non-linear data structure consisting of nodes and edges. The nodes are sometimes also referred
 to as vertices and the edges are lines or arcs that connect any two nodes in the graph. 
+
+[Top](#data-structures)
 
 ## Access times
 
@@ -203,3 +263,5 @@ to as vertices and the edges are lines or arcs that connect any two nodes in the
 |      map/multimap       |        N/A       |    N/A     |    N/A    |  O(log(n)) |  O(log(n))  | O(log(n)) |     N/A     |
 | unordered_set/multiset  |        N/A       |    N/A     |    N/A    |    O(1)    |     O(1)    |    O(1)   |     N/A     |
 |  unordered_map/multimap |        N/A       |    N/A     |    N/A    |    O(1)    |     O(1)    |    O(1)   |     N/A     |
+
+[Top](#data-structures)
